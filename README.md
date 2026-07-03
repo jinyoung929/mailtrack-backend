@@ -3,7 +3,7 @@
 AI 기반 이메일 보안 분석 서비스의 FastAPI 백엔드입니다. Google OAuth 2.0, Gmail API, Gemini API, Supabase를 연동해 실제 메일 데이터를 수집하고 보안 등급, 개인정보·다크데이터, 일정 정보를 분석합니다.
 
 - 프론트엔드 배포 링크: https://illustrious-cupcake-8c5538.netlify.app
-- 백엔드 API: https://mailtrack-backend.onrender.com
+- 백엔드 API: [https://mailtrack-backend.onrender.com](https://mailtrack-backend.onrender.com/docs)
 - 프론트엔드 저장소: https://github.com/jinyoung929/mailtrack-frontend
 
 ## Project Context

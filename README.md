@@ -1,35 +1,38 @@
-# 메일트랙 (MailTrack)
+# 메일트랙 (MailTrack) Backend
 
-> AI 기반 이메일 보안 분석 서비스
+AI 기반 이메일 보안 분석 서비스의 FastAPI 백엔드입니다. Google OAuth 2.0, Gmail API, Gemini API, Supabase를 연동해 실제 메일 데이터를 수집하고 보안 등급, 개인정보·다크데이터, 일정 정보를 분석합니다.
 
-🔗 **배포 링크**: https://illustrious-cupcake-8c5538.netlify.app
-🔗 **백엔드 API**: https://mailtrack-backend.onrender.com
+- 프론트엔드 배포 링크: https://illustrious-cupcake-8c5538.netlify.app
+- 백엔드 API: https://mailtrack-backend.onrender.com
+- 프론트엔드 저장소: https://github.com/jinyoung929/mailtrack-frontend
 
-## 소개
+## Project Context
 
-팀 프로젝트를 개인적으로 재구현한 버전입니다.
-기존 코드를 바탕으로 컴포넌트 구조를 재설계하고 백엔드 라우터를 직접 구현했습니다.
+본 저장소는 2023년 팀 프로젝트를 바탕으로, 2026년 포트폴리오 공개를 위해 개인적으로 재구현한 백엔드입니다. 원본 프로젝트에서 유실되었거나 구현되지 않았던 인증, 메일 수집, 분석, 키워드 관리 라우터를 직접 설계·구현했습니다.
 
-원본 프로젝트는 일부 코드(특히 백엔드 라우터 구현체와 일부 컴포넌트)가 유실되어 직접 재구현했습니다. 
-단순 복원이 아니라 아래 항목을 추가로 설계·구현했습니다.
+## My Role
 
-| 영역 | 원본 | 메일트랙 (개인 구현) |
-|------|------|------|
-| 메일 소스 | Mock 데이터만 사용 | Gmail API 실연동 |
-| 인증 | 없음 (버튼만 존재) | Google OAuth 2.0 직접 구현 |
-| 보안 판단 | AI 자유 판단 | 명시적 기준 하드코딩 + 사용자 키워드 RAG 주입 |
-| 일정 기능 | 없음 | 메일 본문에서 일정 자동 추출 + 캘린더 시각화 |
-| 백엔드 라우터 | 미구현 (설계만 존재) | analyze / mails / keywords / auth 전체 구현 |
-| 에러 처리 | 없음 | API 쿼터 초과 등 예외 상황 graceful fallback |
-| UI | 기본 디자인 시스템만 존재 | 전체 리디자인 (Pretendard 폰트, 컬러 시스템 재정의) |
+- Google OAuth 2.0 인증 흐름 구현
+- Gmail API 기반 메일 조회 라우터 구현
+- Gemini 기반 메일 요약, 보안 등급 분류, 다크데이터 탐지 로직 구현
+- 개인정보, 민감정보, 광고성 메일, 의심 첨부파일 등 탐지 기준 설계
+- 사용자 키워드 기반 스마트 필터 API 구현
+- Supabase 기반 사용자/키워드 데이터 저장 구조 연동
+- API 쿼터 초과 및 외부 API 실패 상황 fallback 처리
 
-개인 프로젝트로 전환하며 "백엔드 없이 프론트만 보여주는 포트폴리오"가 아니라, 실제 Gmail과 연동되어 동작하는 완전한 서비스를 목표로 했습니다.
+## Why This Project Matters
+
+업무 메일은 비정형 데이터이지만 개인정보, 일정, 보안 위험, 불필요 데이터가 함께 존재합니다. 이 백엔드는 Gmail API에서 가져온 메일을 AI가 바로 판단하게 두지 않고, 명시적 탐지 기준과 사용자 키워드를 함께 반영해 사용자가 검토 가능한 분석 결과를 제공하는 데 초점을 두었습니다.
 
 ## 주요 기능
-# 메일트랙 (MailTrack)
 
-> AI 기반 이메일 보안 분석 서비스
-
+| 기능 | 설명 |
+| --- | --- |
+| OAuth 인증 | Google OAuth 2.0 로그인 및 토큰 처리 |
+| Gmail 연동 | 실제 받은 메일함 데이터 조회 |
+| AI 분석 | Gemini API 기반 메일 요약, 보안 등급, 다크데이터 탐지 |
+| 키워드 관리 | 사용자 정의 스팸/위험 키워드 저장 및 분석 기준 반영 |
+| 예외 처리 | API 쿼터 초과 등 외부 API 오류 시 graceful fallback |
 
 ## 다크 데이터 탐지 기준
 
@@ -40,19 +43,10 @@
 5. 첨부파일 언급: 압축파일(.zip .rar), 매크로 문서(.xlsm .docm) 등 의심 확장자
 6. 중복/불필요 데이터: 동일 내용 반복, 만료된 이벤트/공지
 
-## 주요 기능
- 기능 | 설명 |
-|------|------|
-| **Gmail 실연동** | Google OAuth 2.0으로 로그인 후, Gmail API로 실제 받은 메일함을 가져와 분석 |
-| **AI 메일 분석** | Gemini 2.5 Flash로 보안 등급 분류, 요약, 다크 데이터 탐지 |
-| **보안 센터** | 위험/주의/안전 등급별 메일 분류 및 분석 근거 표시 |
-| **다크 데이터 탐지** | 개인정보·민감정보·광고성 메일·의심 첨부파일 등 6가지 기준으로 탐지 |
-| **일정 자동 추출** | 메일 본문에서 날짜·시간·장소를 인식해 캘린더 카드로 시각화 |
-| **스마트 필터** | 사용자 정의 스팸 키워드 등록 → 분석 시 자동 반영 |
-
 ## 기술 스택
 
-- Frontend: React 19 + TypeScript + Tailwind CSS v4 + Vite
-- Backend: FastAPI + Gemini API
-- DB: Supabase (PostgreSQL)
-- 배포: Netlify (FE) + Render (BE)
+- Backend: FastAPI, Python
+- AI: Gemini API
+- External API: Google OAuth 2.0, Gmail API
+- DB: Supabase(PostgreSQL)
+- 배포: Render

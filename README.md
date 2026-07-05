@@ -1,3 +1,4 @@
+
 # 메일트랙 (MailTrack) Backend
 
 AI 기반 이메일 보안 분석 서비스의 FastAPI 백엔드입니다. Google OAuth 2.0, Gmail API, Gemini API, Supabase를 연동해 실제 메일 데이터를 수집하고 보안 등급, 개인정보·다크데이터, 일정 정보를 분석합니다.
@@ -5,6 +6,14 @@ AI 기반 이메일 보안 분석 서비스의 FastAPI 백엔드입니다. Googl
 - 프론트엔드 배포 링크: https://illustrious-cupcake-8c5538.netlify.app
 - 백엔드 API: [https://mailtrack-backend.onrender.com](https://mailtrack-backend.onrender.com/docs)
 - 프론트엔드 저장소: https://github.com/jinyoung929/mailtrack-frontend
+
+
+<img width="1431" height="771" alt="스크린샷 2026-06-30 오전 6 12 02" src="https://github.com/user-attachments/assets/1d9bdab8-9a52-4e64-ba83-bb54f2a5c765" />
+
+<img width="1440" height="738" alt="스크린샷 2026-06-30 오전 6 42 03" src="https://github.com/user-attachments/assets/94374ec6-97c3-461f-bf05-7c0841475f68" />
+
+<img width="1440" height="792" alt="스크린샷 2026-06-30 오전 6 42 14" src="https://github.com/user-attachments/assets/88051aa9-01e4-44b6-8d6f-f1b6169ebc9b" />
+
 
 ## Project Context
 
